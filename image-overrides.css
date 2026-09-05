@@ -61,3 +61,24 @@ h2 { font-size: 48px; overflow-wrap: anywhere; }
 
 .project-card { display: block; color: inherit; text-decoration: none; will-change: transform, opacity; }
 
+
+/* Every main section reserves at least one viewport. */
+.hero,
+.cv-section,
+.work,
+.about {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.work {
+  display: flex;
+  align-items: center;
+}
+.work .project-grid {
+  width: 100%;
+  margin-top: 0;
+}
+.about {
+  border-top: 0;
+  background: transparent;
+}
