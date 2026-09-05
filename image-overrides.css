@@ -1,0 +1,63 @@
+/* Each image slot has its own file so it can be replaced independently. */
+img { display: block; max-width: 100%; object-fit: contain; }
+.brand { width: 64px; border: 0; border-radius: 0; background: transparent; box-shadow: none; transform: none; }
+.brand img { width: 100%; height: 100%;  transform: scale(3)translateX(20px); }
+.hero { align-items: center; }
+h1 { font-size: inherit; line-height: 1; }
+.title-image { width: 100%; height: 300px; }
+.summary { width: min(100%, 420px); padding: 0; border: 0; background: transparent; box-shadow: none; }
+.summary img { width: 100%; height: 160px; }
+.hero-panel { position: relative; min-height: 0; aspect-ratio: 1.15; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.frame-image { width: 100%; height: 100%; position: absolute; inset: 0; }
+/* The separate avatar overlaps only the lower edge of the frame placeholder. */
+.avatar-image { position: absolute; width: 34%; height: 34%; right: 4%; bottom: -5%; animation: bob 2400ms ease-in-out infinite; }
+.project-card, .project-card:hover { min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; aspect-ratio: 178 / 173; }
+.project-card img { width: 100%; height: 100%; }
+.eyebrow, .section-head p, .about p { letter-spacing: 0; }
+h2 { font-size: 48px; overflow-wrap: anywhere; }
+.marquee span { font-size: 56px; }
+@media (max-width: 840px) {
+  .title-image { height: 220px; }
+  .hero-panel { width: min(100%, 480px); justify-self: center; }
+  .project-card { min-height: 0; }
+  h2 { font-size: 32px; }
+}
+
+/* Homepage layout: width, gap and padding control the card positions. */
+.hero {
+  width: min(100%, 680px);
+  margin-inline: auto;
+  min-height: auto;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  padding: 120px 24px 72px;
+}
+.hero-copy { min-width: 0; text-align: center; }
+.hero .summary { margin-inline: auto; }
+.hero .hero-panel { width: min(100%, 420px); justify-self: center; }
+.cursor, #field { display: none; }
+[data-parallax] { transition: translate 240ms ease-out; }
+.avatar-image { animation: none; }
+
+/* Image navigation: change height to resize only the navigation artwork. */
+.image-nav { align-items: center; gap: 12px; }
+.image-nav a, .image-nav button {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; background: transparent; min-height: 44px;
+}
+.image-nav img { width: auto; height: 44px; max-width: 130px; object-fit: contain; }
+.image-nav button:disabled { opacity: 0.65; cursor: not-allowed; }
+.image-nav a:hover img { transform: translateY(-2px); }
+.image-nav a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.nav-dot { font-size: 20px; }
+@media (max-width: 700px) {
+  .topbar { flex-wrap: wrap; row-gap: 12px; }
+  .image-nav { width: 100%; justify-content: center; gap: 6px; }
+  .image-nav a, .image-nav button { min-width: 0; flex: 1; }
+  .image-nav img { width: 100%; height: 36px; }
+  .hero { padding-top: 180px; }
+}
+
+.project-card { display: block; color: inherit; text-decoration: none; will-change: transform, opacity; }
+

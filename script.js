@@ -1,111 +1,70 @@
-const canvas = document.querySelector("#field");
-const ctx = canvas.getContext("2d");
-const cursor = document.querySelector(".cursor");
-const parallaxItems = document.querySelectorAll("[data-parallax]");
-const cards = document.querySelectorAll(".project-card");
+const motionAllowed = window.matchMedia('(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)');
+const proximity = 80;
+const maxOffset = 12;
+const items = [...document.querySelectorAll('[data-parallax]')];
+const clamp = value => Math.max(-1, Math.min(1, value));
 
-let width = 0;
-let height = 0;
-let particles = [];
-let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-
-function resize() {
-  const ratio = window.devicePixelRatio || 1;
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width * ratio;
-  canvas.height = height * ratio;
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  particles = Array.from({ length: Math.min(90, Math.floor(width / 18)) }, () => ({
-    x: Math.random() * width,
-    y: Math.random() * height,
-    vx: (Math.random() - 0.5) * 0.35,
-    vy: (Math.random() - 0.5) * 0.35,
-    r: Math.random() * 1.8 + 0.6,
-  }));
-}
-
-function draw() {
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "rgba(244, 240, 232, 0.48)";
-  ctx.strokeStyle = "rgba(158, 212, 106, 0.12)";
-
-  for (const point of particles) {
-    const dx = mouse.x - point.x;
-    const dy = mouse.y - point.y;
-    const distance = Math.hypot(dx, dy);
-
-    if (distance < 150) {
-      point.x -= dx * 0.0018;
-      point.y -= dy * 0.0018;
-      ctx.beginPath();
-      ctx.moveTo(point.x, point.y);
-      ctx.lineTo(mouse.x, mouse.y);
-      ctx.stroke();
-    }
-
-    point.x += point.vx;
-    point.y += point.vy;
-
-    if (point.x < -10) point.x = width + 10;
-    if (point.x > width + 10) point.x = -10;
-    if (point.y < -10) point.y = height + 10;
-    if (point.y > height + 10) point.y = -10;
-
-    ctx.beginPath();
-    ctx.arc(point.x, point.y, point.r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  requestAnimationFrame(draw);
+function resetParallax() {
+  items.forEach(item => { item.style.translate = '0px 0px'; });
 }
 
 function updatePointer(event) {
-  mouse = { x: event.clientX, y: event.clientY };
-  cursor.style.left = `${mouse.x}px`;
-  cursor.style.top = `${mouse.y}px`;
-
-  for (const item of parallaxItems) {
-    const speed = Number(item.dataset.parallax);
-    const x = (mouse.x - width / 2) * speed;
-    const y = (mouse.y - height / 2) * speed;
-    item.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  if (!motionAllowed.matches || event.pointerType === 'touch') return resetParallax();
+  let nearest = null;
+  let nearestDistance = Infinity;
+  // Use unshifted bounds so movement cannot feed back into hit testing.
+  for (const item of items) {
+    const rect = item.getBoundingClientRect();
+    const translation = getComputedStyle(item).translate.split(' ').map(parseFloat);
+    const left = rect.left - (translation[0] || 0);
+    const top = rect.top - (translation[1] || 0);
+    const dx = event.clientX - (left + rect.width / 2);
+    const dy = event.clientY - (top + rect.height / 2);
+    const distance = Math.hypot(Math.max(0, Math.abs(dx) - rect.width / 2), Math.max(0, Math.abs(dy) - rect.height / 2));
+    if (distance < proximity && distance < nearestDistance) {
+      nearestDistance = distance;
+      nearest = { item, dx, dy, width: rect.width, height: rect.height };
+    }
   }
+  items.forEach(item => {
+    let x = 0;
+    let y = 0;
+    if (nearest && nearest.item === item) {
+      const strength = 1 - nearestDistance / proximity;
+      const direction = Math.sign(Number(item.dataset.parallax)) || 1;
+      x = clamp(nearest.dx / (nearest.width / 2)) * maxOffset * strength * direction;
+      y = clamp(nearest.dy / (nearest.height / 2)) * maxOffset * strength * direction;
+    }
+    item.style.translate = `${x}px ${y}px`;
+  });
 }
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
     }
-  },
-  { threshold: 0.18 }
-);
+  });
+}, { threshold: 0.18 });
+document.querySelectorAll('.reveal').forEach(item => observer.observe(item));
 
-document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
-
-cards.forEach((card) => {
-  card.addEventListener("pointermove", (event) => {
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('pointermove', event => {
+    if (!motionAllowed.matches || event.pointerType === 'touch') return;
     const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const rotateY = ((x / rect.width) - 0.5) * 10;
-    const rotateX = ((y / rect.height) - 0.5) * -10;
-    card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * -10;
+    card.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg) translateY(-8px)`;
   });
-
-  card.addEventListener("pointerleave", () => {
-    card.style.transform = "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
-  });
-
-  card.addEventListener("pointerenter", () => cursor.classList.add("active"));
-  card.addEventListener("pointerleave", () => cursor.classList.remove("active"));
+  card.addEventListener('pointerleave', () => { card.style.transform = ''; });
 });
-
-window.addEventListener("pointermove", updatePointer);
-window.addEventListener("resize", resize);
-
-resize();
-draw();
+window.addEventListener('pointermove', updatePointer);
+document.documentElement.addEventListener('pointerleave', resetParallax);
+window.addEventListener('blur', resetParallax);
+window.addEventListener('scroll', resetParallax, { passive: true });
+window.addEventListener('resize', resetParallax);
+motionAllowed.addEventListener('change', () => {
+  resetParallax();
+  document.querySelectorAll('.project-card').forEach(card => { card.style.transform = ''; });
+});

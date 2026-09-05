@@ -1,103 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Comic Portfolio Demo</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <canvas id="field" aria-hidden="true"></canvas>
-    <div class="cursor" aria-hidden="true"></div>
-
-    <header class="topbar">
-      <a class="brand" href="#home">TT!</a>
-      <nav aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
-
-    <main>
-      <section class="hero" id="home">
-        <div class="hero-copy" data-parallax="0.06">
-          <p class="eyebrow reveal">Technical Artist / Pop Visual Lab</p>
-          <h1 aria-label="Tian Tian Studio">
-            <span class="line"><span>Tian</span></span>
-            <span class="line"><span>Studio!</span></span>
-          </h1>
-          <p class="summary reveal">
-            A bright portfolio space for procedural fabric, playful shaders,
-            realtime scenes, and handmade digital tools.
-          </p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio Image Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="image-overrides.css">
+  <link rel="stylesheet" href="cv.css">
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Home"><img src="assets/logo.png" alt="Test"></a>
+    <nav class="image-nav" aria-label="Primary navigation">
+      <a href="#home"><img src="assets/Home.png" alt="Home"></a>
+      <span class="nav-dot" aria-hidden="true">&middot;</span>
+      <a href="#cv"><img src="assets/CV.png" alt="CV"></a>
+      <span class="nav-dot" aria-hidden="true">&middot;</span>
+      <a href="#work"><img src="assets/Portfolio.png" alt="Portfolio"></a>
+      <span class="nav-dot" aria-hidden="true">&middot;</span>
+      <a href="#about"><img src="assets/AboutMe.png" alt="Aboutme"></a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy" data-parallax="0.06">
+        <p class="eyebrow reveal">Technical Artist / Pop Visual Lab</p>
+        <h1 aria-label="Studio"><span class="line"><span><img class="title-image" src="assets/title.png" alt="Test"></span></span></h1>
+        <div class="summary reveal"><img src="assets/intro-card.png" alt="Introduction card"></div>
+      </div>
+      <div class="hero-panel reveal" data-parallax="-0.04">
+        <img class="frame-image" src="assets/frame.png" alt="Frame">
+        <img class="avatar-image" src="assets/avatar.png" alt="Avatar">
+      </div>
+    </section>
+    <section class="cv-section" id="cv" aria-labelledby="cv-name">
+      <article class="cv-sheet">
+        <img class="cv-frame" src="assets/CV_browser_frame.png" alt="" aria-hidden="true">
+        <div class="cv-content">
+          <header class="cv-heading"><h2 id="cv-name">LI HONG YI</h2><p>Technical Artist &middot; Creative Technologist &middot; 3D Artist</p></header>
+          <section><h3>Profile</h3><p>I am a technical artist interested in the intersection of visual creation, real-time graphics, procedural design, and creative tools. My work combines artistic practice with technical workflows to explore new ways of creating digital content.</p></section>
+          <section><h3>Education</h3><p><strong>Sichuan Fine Arts Institute</strong><br>B.A. in Film and Television Production Art<br>2018&ndash;2022</p></section>
+          <section><h3>Experience</h3>
+            <p><strong>Technical Artist / Application Developer</strong><br>Shenzhen Tencent Entertainment Technology Co., Ltd.<br>2023&ndash;2026</p>
+            <ul><li>Developed tools and workflows for 3D content production.</li><li>Worked with Blender, Python, Unreal Engine, and AI-assisted pipelines.</li><li>Supported technical testing, asset processing, and workflow optimization.</li></ul>
+            <p><strong>3D Artist</strong><br>Chongqing Yujitu Technology Co., Ltd.<br>2022&ndash;2023</p>
+            <ul><li>Created 3D assets for games and digital media projects.</li><li>Participated in modeling, texturing, rendering, and asset optimization.</li></ul>
+          </section>
+          <section><h3>Selected Projects</h3>
+            <p><strong>Procedural Fabric Generator</strong><br>A customizable fabric material system created with Substance Designer.</p>
+            <p><strong>Dynamic Weather System</strong><br>A real-time Unreal Engine project exploring rain, water, ice, and environmental changes.</p>
+            <p><strong>Blender Workflow Tools</strong><br>Python tools for batch processing, animation data handling, and 3D production automation.</p>
+          </section>
+          <section><h3>Skills</h3>
+            <p><strong>3D &amp; Design</strong><br>Blender &middot; Unreal Engine &middot; Substance Designer &middot; Substance Painter &middot; ZBrush</p>
+            <p><strong>Programming</strong><br>Python &middot; HLSL &middot; Unreal Engine Blueprints</p>
+            <p><strong>Focus Areas</strong><br>Technical Art &middot; Procedural Materials &middot; Real-Time Rendering &middot; Creative Tools &middot; Human-AI Collaboration</p>
+          </section>
+          <section><h3>Contact</h3><p>Email: <a href="mailto:yourname@email.com">yourname@email.com</a><br>GitHub: <a href="https://github.com/lhy-ee">github.com/lhy-ee</a><br>Portfolio: <a href="https://lhy-ee.github.io">lhy-ee.github.io</a></p></section>
         </div>
-        <div class="hero-panel reveal" data-parallax="-0.04">
-          <div class="poster">
-            <span class="burst">LOVE</span>
-            <span class="bubble">WOW!</span>
-            <span class="spark s1">*</span>
-            <span class="spark s2">+</span>
-            <div class="face">
-              <span class="hair"></span>
-              <span class="eye left"></span>
-              <span class="eye right"></span>
-              <span class="mouth"></span>
-            </div>
-          </div>
-          <p>01 / homepage motion study</p>
-        </div>
-      </section>
-
-      <section class="marquee" aria-label="Research interests">
-        <div>
-          <span>Fabric!</span>
-          <span>Shaders!</span>
-          <span>Weather!</span>
-          <span>Tools!</span>
-          <span>Motion!</span>
-        </div>
-      </section>
-
-      <section class="work" id="work">
-        <div class="section-head reveal">
-          <p>Selected Projects</p>
-          <h2>Comic-bright project cards with motion and playful framing.</h2>
-        </div>
-
-        <div class="project-grid">
-          <article class="project-card reveal">
-            <div class="thumb fabric"><span>01</span></div>
-            <p>Procedural Fabric Generator</p>
-            <h3>Patterns, masks, folds, and fabric presets.</h3>
-          </article>
-          <article class="project-card reveal">
-            <div class="thumb weather"><span>02</span></div>
-            <p>Realtime Weather System</p>
-            <h3>Cloud layers, rain timing, and wet surface response.</h3>
-          </article>
-          <article class="project-card reveal">
-            <div class="thumb tools"><span>03</span></div>
-            <p>Blender Pipeline Tools</p>
-            <h3>Fast buttons for setup, cleanup, and look development.</h3>
-          </article>
-        </div>
-      </section>
-
-      <section class="about reveal" id="about">
-        <p>About</p>
-        <h2>
-          Placeholder bio, education, experience, and CV can live here later.
-          The visual language is already closer to your references.
-        </h2>
-      </section>
-    </main>
-
-    <footer id="contact">
-      <span>Portfolio / PhD application / technical art showcase.</span>
-      <a href="mailto:hello@example.com">hello@example.com</a>
-    </footer>
-
-    <script src="script.js"></script>
-  </body>
+      </article>
+    </section>
+    <section class="work" id="work">
+      <div class="section-head"><p>Selected Projects</p><h2>Selected work</h2></div>
+      <div class="project-grid">
+        <a class="project-card" href="projects/work-1.html"><img src="assets/project-01.png" alt="Project 01"></a>
+        <a class="project-card" href="projects/work-2.html"><img src="assets/project-01.png" alt="Project 02"></a>
+        <a class="project-card" href="projects/work-3.html"><img src="assets/project-01.png" alt="Project 03"></a>
+        <a class="project-card" href="projects/work-4.html"><img src="assets/project-01.png" alt="Project 04"></a>
+        <a class="project-card" href="projects/work-5.html"><img src="assets/project-01.png" alt="Project 05"></a>
+        <a class="project-card" href="projects/work-6.html"><img src="assets/project-01.png" alt="Project 06"></a>
+      </div>
+    </section>
+    <section class="about reveal" id="about"><p>About</p><h2>Placeholder bio, education, experience, and CV can live here later.</h2></section>
+  </main>
+  <footer id="contact"><span>Portfolio / technical art showcase.</span><a href="mailto:hello@example.com">hello@example.com</a></footer>
+  <script src="script.js"></script>
+  <script src="cv-scroll.js"></script>
+  <script src="section-scroll.js"></script>
+</body>
 </html>
+
+
+
+
+
