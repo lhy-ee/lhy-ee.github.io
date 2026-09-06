@@ -290,3 +290,54 @@ h2 { font-size: 48px; overflow-wrap: anywhere; }
 
 .eye-pupil { transition-duration: 180ms; }
 
+
+/* Collage cover based on the supplied poster reference. */
+.hero { position: relative; isolation: isolate; overflow: hidden; padding: 96px 24px 24px; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background: linear-gradient(115deg, transparent 0 12%, rgba(31,61,242,.16) 12% 24%, transparent 24% 72%, rgba(255,49,119,.15) 72% 84%, transparent 84%), radial-gradient(circle at 1px 1px, rgba(23,36,67,.24) 1.5px, transparent 1.7px);
+  background-size: auto, 20px 20px;
+}
+.home-visual { position: relative; z-index: 2; width: min(55vw,720px); height: min(88vh,900px); }
+.home-stickers { position: absolute; inset: 76px 2.5vw 20px; z-index: 1; pointer-events: none; }
+.cover-sticker { position: absolute; object-fit: contain; filter: drop-shadow(3px 5px 0 rgba(23,36,67,.18)); animation: stickerDrift 7s ease-in-out infinite; }
+.sticker-crown { width: clamp(80px,10vw,160px); left: 5%; top: 6%; rotate: -13deg; animation-delay: -1.2s; }
+.sticker-arrow { width: clamp(72px,8vw,125px); left: 19%; top: 31%; rotate: 24deg; animation-delay: -4.5s; }
+.sticker-spark { width: clamp(68px,8vw,130px); right: 20%; top: 13%; rotate: 14deg; animation-delay: -2.3s; }
+.sticker-starburst { width: clamp(76px,9vw,145px); left: 24%; bottom: 8%; rotate: -18deg; animation-delay: -5.7s; }
+.sticker-lightning { width: clamp(72px,8vw,120px); right: 22%; top: 42%; rotate: 7deg; animation-delay: -3.4s; }
+.sticker-bubble { width: clamp(160px,20vw,310px); right: 2%; top: 24%; rotate: 6deg; animation-delay: -.8s; }
+.sticker-barcode { width: clamp(170px,23vw,360px); right: 1%; bottom: 10%; rotate: -7deg; animation-delay: -4.1s; }
+.sticker-label { width: clamp(220px,29vw,450px); left: 1%; bottom: 12%; rotate: -4deg; animation-delay: -2.8s; }
+.sticker-orbit { width: clamp(55px,6vw,92px); right: 12%; bottom: 32%; rotate: 11deg; animation-delay: -6.1s; }
+.sticker-smiley { width: clamp(48px,5vw,78px); left: 10%; bottom: 39%; rotate: -9deg; animation-delay: -3.1s; }
+@keyframes stickerDrift { 0%,100% { transform: translateY(2px) rotate(-.6deg); } 50% { transform: translateY(-5px) rotate(.7deg); } }
+@media (max-width:700px) {
+  .hero { padding-top:155px; }
+  .home-visual { width:min(80vw,540px); height:72vh; }
+  .home-stickers { inset:138px 8px 18px; }
+  .sticker-label { width:210px; bottom:5%; }
+  .sticker-bubble { width:150px; top:20%; }
+  .sticker-barcode { width:170px; bottom:4%; }
+  .sticker-arrow,.sticker-orbit,.sticker-smiley { display:none; }
+}
+@media (prefers-reduced-motion:reduce) { .cover-sticker { animation:none; } }
+
+/* Restore the original homepage background. */
+.hero::before { content: none; }
+
+/* Both frame layers share motion that differs from the face. */
+.face-frame {
+  animation: framePulse 7.4s ease-in-out infinite;
+  transform-origin: 50% 52%;
+}
+.frame-down { z-index: -1; }
+.frame-up { z-index: 5; }
+@keyframes framePulse {
+  0%, 100% { transform: translateY(-1px) rotate(0.55deg); }
+  42% { transform: translateY(3px) rotate(-0.55deg); }
+  76% { transform: translateY(0) rotate(0.3deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .face-frame { animation: none; }
+}
