@@ -53,9 +53,9 @@ document.querySelectorAll('.project-card').forEach(card => {
   card.addEventListener('pointermove', event => {
     if (!motionAllowed.matches || event.pointerType === 'touch') return;
     const rect = card.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
-    const y = ((event.clientY - rect.top) / rect.height - 0.5) * -10;
-    card.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg) translateY(-8px)`;
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * -18;
+    card.style.transform = `perspective(720px) rotateX(${y}deg) rotateY(${x}deg) translateY(-16px) scale(1.025)`;
   });
   card.addEventListener('pointerleave', () => { card.style.transform = ''; });
 });
@@ -68,3 +68,4 @@ motionAllowed.addEventListener('change', () => {
   resetParallax();
   document.querySelectorAll('.project-card').forEach(card => { card.style.transform = ''; });
 });
+

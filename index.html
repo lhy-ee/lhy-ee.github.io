@@ -23,7 +23,13 @@
   <main>
     <section class="hero" id="home">
       <div class="home-visual" data-parallax="0.025">
-        <img src="assets/home_page.png" alt="Home illustration">
+        <div class="eye-character" aria-label="Hand-drawn character">
+          <img src="assets/eye-layers/face-base.png" alt="">
+          <img src="assets/eye-layers/eye-white.png" alt="">
+          <img class="eye-pupil" src="assets/eye-layers/pupil-left.png" alt="">
+          <img class="eye-pupil" src="assets/eye-layers/pupil-right.png" alt="">
+          <img src="assets/eye-layers/eye-cover.png" alt="">
+        </div>
       </div>
     </section>
     <section class="cv-section" id="cv" aria-labelledby="cv-name">
@@ -70,8 +76,10 @@
   <script src="cv-scroll.js"></script>
   <script src="section-scroll.js"></script>
   <script src="nav-scroll.js"></script>
+  <script src="eye-follow.js"></script>
 </body>
 </html>
+
 
 
 
