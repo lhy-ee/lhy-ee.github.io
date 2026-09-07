@@ -36,12 +36,19 @@
     sizeControl.disabled = !selected;
     rotateControl.disabled = !selected;
     if (selected) {
-      sizeControl.value = Math.round(selected.getBoundingClientRect().width);
+      sizeControl.value = Math.round(parseFloat(getComputedStyle(selected).width));
       rotateControl.value = Math.round(parseFloat(getComputedStyle(selected).rotate) || 0);
     }
   }
 
+  function scaleWidth(sticker) {
+    if (sticker.style.width.endsWith('px')) {
+      sticker.style.width = (parseFloat(sticker.style.width) / 880 * 100) + '%';
+    }
+  }
+
   function normalize(sticker) {
+    scaleWidth(sticker);
     if (getComputedStyle(sticker).display === 'none') return;
     if (sticker.dataset.editorReady === 'true' && sticker.style.left.endsWith('%') && sticker.style.top.endsWith('%')) return;
     const canvasRect = canvas.getBoundingClientRect();
@@ -51,7 +58,7 @@
     sticker.style.top = `${((rect.top - canvasRect.top) / canvasRect.height) * 100}%`;
     sticker.style.right = 'auto';
     sticker.style.bottom = 'auto';
-    sticker.style.width = `${rect.width}px`;
+    sticker.style.width = (parseFloat(getComputedStyle(sticker).width) / canvas.clientWidth * 100) + '%';
     sticker.style.height = 'auto';
     sticker.style.rotate = `${rotation}deg`;
     sticker.dataset.editorReady = 'true';
@@ -117,8 +124,8 @@
       const angle = (parseFloat(sticker.style.rotate) || 0) + (event.deltaY < 0 ? 1 : -1);
       sticker.style.rotate = `${angle}deg`;
     } else {
-      const current = sticker.getBoundingClientRect().width;
-      sticker.style.width = `${Math.max(10, Math.min(1200, current * (event.deltaY < 0 ? 1.08 : 0.90)))}px`;
+      const current = parseFloat(getComputedStyle(sticker).width);
+      sticker.style.width = (Math.max(10, Math.min(1200, current * (event.deltaY < 0 ? 1.08 : 0.90))) / canvas.clientWidth * 100) + '%';
       clampSticker(sticker);
     }
     event.preventDefault();
@@ -208,7 +215,7 @@
   sizeControl.addEventListener('input', () => {
     if (!selected) return;
     normalize(selected);
-    selected.style.width = `${sizeControl.value}px`;
+    selected.style.width = (Number(sizeControl.value) / canvas.clientWidth * 100) + '%';
     clampSticker(selected);
   });
 
@@ -229,7 +236,7 @@
         img.dataset.editorReady = 'true';
         img.style.left = `${42 + (index * 18 / canvas.clientWidth) * 100}%`;
         img.style.top = `${42 + (index * 18 / canvas.clientHeight) * 100}%`;
-        img.style.width = '150px';
+        img.style.width = (150 / canvas.clientWidth * 100) + '%';
         img.style.height = 'auto';
         img.style.rotate = '0deg';
         img.draggable = false;
@@ -264,6 +271,7 @@
   ensureIds();
   requestAnimationFrame(() => stickers().forEach(normalize));
 })();
+
 
 
 
