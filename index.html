@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio Image Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="image-overrides.css">
+  <link rel="stylesheet" href="cv.css">
+</head>
+<body>
+  <div class="home-background" aria-hidden="true">
+        <div class="background-strip handdraw-strip"></div>
+        <div class="background-strip welcome-strip"></div>
+        <div class="background-strip handdraw-strip"></div>
+        <div class="background-strip welcome-strip"></div>
+      </div>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="cursor" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Home"><img src="assets/logo.png" alt="Test"></a>
+    <nav class="image-nav" aria-label="Primary navigation">
+      <a href="#home"><img src="assets/Home.png" alt="Home"></a>
+      <a href="#cv"><img src="assets/CV.png" alt="CV"></a>
+      <a href="#work"><img src="assets/Portfolio.png" alt="Portfolio"></a>
+      <a href="#about"><img src="assets/AboutMe.png" alt="Aboutme"></a>
+    </nav>
+  </header>
+  <aside class="sticker-editor" id="sticker-editor" aria-hidden="true">
+    <strong>Sticker editor</strong>
+    <span class="editor-status" id="editor-status">Select a sticker</span>
+    <div class="editor-controls">
+      <label>Size <input id="sticker-size" type="range" min="10" max="1200" value="150" disabled></label>
+      <label>Rotate <input id="sticker-rotate" type="range" min="-180" max="180" value="0" disabled></label>
+    </div>    <div class="editor-actions">
+      <button type="button" data-action="add">Add</button>
+      <button type="button" data-action="duplicate">Duplicate</button>
+      <button type="button" data-action="delete">Delete</button>
+      <button type="button" data-action="save">Save</button>
+      <button type="button" data-action="export">Export</button>
+      <button type="button" data-action="reset">Reset</button>
+      <button type="button" data-action="close">Done</button>
+    </div>
+    <input id="sticker-file" type="file" accept="image/png,image/webp,image/jpeg" multiple hidden>
+  </aside>  <main>
+    <div class="home-scroll-scene">
+    <section class="hero" id="home">
+      
+      <div class="home-visual">
+        <div class="home-stickers" aria-hidden="true">
+          <img id="sticker-1" class="cover-sticker sticker-crown" src="assets/custom-stickers/01-pink-crown.png" alt="" data-sticker-id="sticker-1" data-editor-ready="true" style="left:59.298%;top:3.72133%;width:8.999489%;rotate:26deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-2" class="cover-sticker sticker-arrow" src="assets/custom-stickers/02-down-arrow.png" alt="" data-sticker-id="sticker-2" data-editor-ready="true">
+          <img id="sticker-3" class="cover-sticker sticker-spark" src="assets/custom-stickers/03-pink-spark.png" alt="" data-sticker-id="sticker-3" data-editor-ready="true" style="left:-1.04325%;top:29.5742%;width:5.766307%;rotate:13deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-4" class="cover-sticker sticker-starburst" src="assets/custom-stickers/04-long-starburst.png" alt="" data-sticker-id="sticker-4" data-editor-ready="true">
+          <img id="sticker-5" class="cover-sticker sticker-lightning" src="assets/custom-stickers/08-lightning.png" alt="" data-sticker-id="sticker-5" data-editor-ready="true">
+          <img id="sticker-6" class="cover-sticker sticker-bubble" src="assets/custom-stickers/09-build-things-bubble.png" alt="" data-sticker-id="sticker-6" data-editor-ready="true" style="left:11.8885%;top:64.3326%;width:15%;rotate:-2deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-8" class="cover-sticker sticker-label" src="assets/custom-stickers/11-technical-art-label.png" alt="" data-sticker-id="sticker-8" data-editor-ready="true" style="left:34.5584%;top:76.0837%;width:39.96375%;rotate:16deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-9" class="cover-sticker sticker-orbit" src="assets/custom-stickers/12-orbit.png" alt="" data-sticker-id="sticker-9" data-editor-ready="true">
+          <img id="sticker-10" class="cover-sticker sticker-smiley" src="assets/custom-stickers/13-smiley.png" alt="" data-sticker-id="sticker-10" data-editor-ready="true">
+          <img id="sticker-11" class="cover-sticker sticker-lhy" src="assets/custom-stickers/lhy.png" alt="" data-sticker-id="sticker-11" data-editor-ready="true" style="left:-15.4549%;top:16.1234%;width:43.634659%;rotate:10deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-16" class="cover-sticker sticker-play" src="assets/custom-stickers/20-play.png" alt="" data-sticker-id="sticker-16" data-editor-ready="true">
+          <img id="sticker-22" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-22.png" alt="" data-sticker-id="sticker-22" data-editor-ready="true" style="left:-25.2784%;top:1.91696%;width:17.084205%;rotate:0deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-23" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-23.png" alt="" data-sticker-id="sticker-23" data-editor-ready="true" style="left:67.2757%;top:89.7315%;width:4.659091%;rotate:14deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-24" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-24.png" alt="" data-sticker-id="sticker-24" data-editor-ready="true" style="left:79.2248%;top:68.2929%;width:5.568182%;rotate:26deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-25" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-25.png" alt="" data-sticker-id="sticker-25" data-editor-ready="true" style="left:-12.5819%;top:33.4027%;width:9.095648%;rotate:-28deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-26" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-26.png" alt="" data-sticker-id="sticker-26" data-editor-ready="true" style="left:-0.750989%;top:39.4179%;width:10.015977%;rotate:0deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-27" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-27.png" alt="" data-sticker-id="sticker-27" data-editor-ready="true" style="left:19.069%;top:13.4152%;width:8.281773%;rotate:-30deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-28" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-28.png" alt="" data-sticker-id="sticker-28" data-editor-ready="true" style="left:75.6157%;top:75.9328%;width:12.290455%;rotate:0deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-29" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-29.png" alt="" data-sticker-id="sticker-29" data-editor-ready="true" style="left:91.6413%;top:13.382%;width:5.577227%;rotate:0deg;right:auto;bottom:auto;height:auto">
+          <img id="sticker-30" class="cover-sticker sticker-custom" src="assets/custom-stickers/sticker-30.png" alt="" data-sticker-id="sticker-30" data-editor-ready="true" style="left:82.5206%;top:93.9347%;width:4.090909%;rotate:50deg;right:auto;bottom:auto;height:auto">
+        </div>
+        <div class="eye-character" aria-label="Hand-drawn character">
+                    <img class="face-frame frame-down" src="assets/eye-layers/frame_down.png" alt="">
+<img src="assets/eye-layers/face-base.png" alt="">
+          <img src="assets/eye-layers/eye-white.png" alt="">
+          <img class="eye-pupil" src="assets/eye-layers/pupil-left.png" alt="">
+          <img class="eye-pupil" src="assets/eye-layers/pupil-right.png" alt="">
+          <img src="assets/eye-layers/eye-cover.png" alt="">
+          <img class="face-frame frame-up" src="assets/eye-layers/frame_up.png" alt="">
+          <img class="body-cover" src="assets/eye-layers/body-cover.png" alt="">
+        </div>
+      </div>
+    </section></div>
+    <section class="cv-section" id="cv" aria-labelledby="cv-name">
+      <article class="cv-sheet">
+        <img class="cv-frame" src="assets/CV_browser_frame.png" alt="" aria-hidden="true">
+        <div class="cv-content">
+          <header class="cv-heading"><h2 id="cv-name">LI HONG YI</h2><p>Technical Artist &middot; Creative Technologist &middot; 3D Artist</p></header>
+          <section><h3>Profile</h3><p>I am a technical artist interested in the intersection of visual creation, real-time graphics, procedural design, and creative tools. My work combines artistic practice with technical workflows to explore new ways of creating digital content.</p></section>
+          <section><h3>Education</h3><p><strong>Sichuan Fine Arts Institute</strong><br>B.A. in Film and Television Production Art<br>2018&ndash;2022</p></section>
+          <section><h3>Experience</h3>
+            <p><strong>Technical Artist / Application Developer</strong><br>Shenzhen Tencent Entertainment Technology Co., Ltd.<br>2023&ndash;2026</p>
+            <ul><li>Developed tools and workflows for 3D content production.</li><li>Worked with Blender, Python, Unreal Engine, and AI-assisted pipelines.</li><li>Supported technical testing, asset processing, and workflow optimization.</li></ul>
+            <p><strong>3D Artist</strong><br>Chongqing Yujitu Technology Co., Ltd.<br>2022&ndash;2023</p>
+            <ul><li>Created 3D assets for games and digital media projects.</li><li>Participated in modeling, texturing, rendering, and asset optimization.</li></ul>
+          </section>
+          <section><h3>Selected Projects</h3>
+            <p><strong>Procedural Fabric Generator</strong><br>A customizable fabric material system created with Substance Designer.</p>
+            <p><strong>Dynamic Weather System</strong><br>A real-time Unreal Engine project exploring rain, water, ice, and environmental changes.</p>
+            <p><strong>Blender Workflow Tools</strong><br>Python tools for batch processing, animation data handling, and 3D production automation.</p>
+          </section>
+          <section><h3>Skills</h3>
+            <p><strong>3D &amp; Design</strong><br>Blender &middot; Unreal Engine &middot; Substance Designer &middot; Substance Painter &middot; ZBrush</p>
+            <p><strong>Programming</strong><br>Python &middot; HLSL &middot; Unreal Engine Blueprints</p>
+            <p><strong>Focus Areas</strong><br>Technical Art &middot; Procedural Materials &middot; Real-Time Rendering &middot; Creative Tools &middot; Human-AI Collaboration</p>
+          </section>
+          <section><h3>Contact</h3><p>Email: <a href="mailto:yourname@email.com">yourname@email.com</a><br>GitHub: <a href="https://github.com/lhy-ee">github.com/lhy-ee</a><br>Portfolio: <a href="https://lhy-ee.github.io">lhy-ee.github.io</a></p></section>
+        </div>
+      </article>
+    </section>
+    <section class="work" id="work">
+<div class="project-grid">
+        <a class="project-card" href="projects/work-1.html"><img src="assets/project-01.png" alt="Project 01"></a>
+        <a class="project-card" href="projects/work-2.html"><img src="assets/project-01.png" alt="Project 02"></a>
+        <a class="project-card" href="projects/work-3.html"><img src="assets/project-01.png" alt="Project 03"></a>
+        <a class="project-card" href="projects/work-4.html"><img src="assets/project-01.png" alt="Project 04"></a>
+        <a class="project-card" href="projects/work-5.html"><img src="assets/project-01.png" alt="Project 05"></a>
+        <a class="project-card" href="projects/work-6.html"><img src="assets/project-01.png" alt="Project 06"></a>
+      </div>
+    </section>
+    <section class="about" id="about" aria-label="About me"></section>
+  </main>
+  <footer id="contact"><span>Portfolio / technical art showcase.</span><a href="mailto:hello@example.com">hello@example.com</a></footer>
+  <script src="script.js"></script>
+  <script src="cv-scroll.js"></script>
+  <script src="section-scroll.js"></script>
+  <script src="nav-scroll.js"></script>
+  <script src="eye-follow.js"></script>
+  <script src="sticker-editor.js"></script>
+  <script src="background-scroll.js"></script>
+  <script src="home-scroll.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,556 @@
+/* Each image slot has its own file so it can be replaced independently. */
+img { display: block; max-width: 100%; object-fit: contain; }
+.brand { width: 64px; border: 0; border-radius: 0; background: transparent; box-shadow: none; transform: none; }
+.brand img { width: 100%; height: 100%;  transform: scale(3)translateX(20px); }
+.hero { align-items: center; }
+h1 { font-size: inherit; line-height: 1; }
+.title-image { width: 100%; height: 300px; }
+.summary { width: min(100%, 420px); padding: 0; border: 0; background: transparent; box-shadow: none; }
+.summary img { width: 100%; height: 160px; }
+.hero-panel { position: relative; min-height: 0; aspect-ratio: 1.15; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.frame-image { width: 100%; height: 100%; position: absolute; inset: 0; }
+/* The separate avatar overlaps only the lower edge of the frame placeholder. */
+.avatar-image { position: absolute; width: 34%; height: 34%; right: 4%; bottom: -5%; animation: bob 2400ms ease-in-out infinite; }
+.project-card, .project-card:hover { min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; aspect-ratio: 178 / 173; }
+.project-card img { width: 100%; height: 100%; }
+.eyebrow, .section-head p, .about p { letter-spacing: 0; }
+h2 { font-size: 48px; overflow-wrap: anywhere; }
+.marquee span { font-size: 56px; }
+@media (max-width: 840px) {
+  .title-image { height: 220px; }
+  .hero-panel { width: min(100%, 480px); justify-self: center; }
+  .project-card { min-height: 0; }
+  h2 { font-size: 32px; }
+}
+
+/* Homepage layout: width, gap and padding control the card positions. */
+.hero {
+  width: min(100%, 680px);
+  margin-inline: auto;
+  min-height: auto;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  padding: 120px 24px 72px;
+}
+.hero-copy { min-width: 0; text-align: center; }
+.hero .summary { margin-inline: auto; }
+.hero .hero-panel { width: min(100%, 420px); justify-self: center; }
+.cursor, #field { display: none; }
+[data-parallax] { transition: translate 240ms ease-out; }
+.avatar-image { animation: none; }
+
+/* Image navigation: change height to resize only the navigation artwork. */
+.image-nav { align-items: center; gap: 12px; }
+.image-nav a, .image-nav button {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; background: transparent; min-height: 44px;
+}
+.image-nav img { width: auto; height: 44px; max-width: 130px; object-fit: contain; }
+.image-nav button:disabled { opacity: 0.65; cursor: not-allowed; }
+.image-nav a:hover img { transform: translateY(-2px); }
+.image-nav a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.nav-dot { font-size: 20px; }
+@media (max-width: 700px) {
+  .topbar { flex-wrap: wrap; row-gap: 12px; }
+  .image-nav { width: 100%; justify-content: center; gap: 6px; }
+  .image-nav a, .image-nav button { min-width: 0; flex: 1; }
+  .image-nav img { width: 100%; height: 36px; }
+  .hero { padding-top: 180px; }
+}
+
+.project-card { display: block; color: inherit; text-decoration: none; will-change: transform, opacity; }
+
+
+/* Every main section reserves at least one viewport. */
+.hero,
+.cv-section,
+.work,
+.about {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.work {
+  display: flex;
+  align-items: center;
+}
+.work .project-grid {
+  width: 100%;
+  margin-top: 0;
+}
+.about {
+  border-top: 0;
+  background: transparent;
+}
+
+/* Navigation artwork and subtle motion. */
+.topbar { isolation: isolate; }
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 244, 49, 0.72), rgba(255, 244, 49, 0.08));
+  transition: opacity 320ms ease;
+}
+.topbar.has-backdrop::before { opacity: var(--nav-backdrop-opacity, 1); }
+.image-nav .nav-dot { display: none; }
+.image-nav a:nth-of-type(3) img { transform: scale(1.135); }
+.image-nav a:nth-of-type(4) img { transform: scale(1.075); }
+.brand,
+.image-nav a { animation: navPulse 3.8s ease-in-out infinite; }
+.image-nav a:nth-of-type(1) { animation-delay: -0.6s; }
+.image-nav a:nth-of-type(2) { animation-delay: -1.2s; }
+.image-nav a:nth-of-type(3) { animation-delay: -1.8s; }
+.image-nav a:nth-of-type(4) { animation-delay: -2.4s; }
+.image-nav a:nth-of-type(3):hover img { transform: scale(1.135) translateY(-2px); }
+.image-nav a:nth-of-type(4):hover img { transform: scale(1.075) translateY(-2px); }
+.project-card img { animation: projectPulse 4.6s ease-in-out infinite; }
+.project-card:nth-child(2n) img { animation-delay: -1.4s; }
+.project-card:nth-child(3n) img { animation-delay: -2.7s; }
+@keyframes navPulse {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -1.5px; rotate: 0.25deg; }
+}
+@keyframes projectPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.008); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand, .image-nav a, .project-card img { animation: none; }
+}
+
+
+/* Single centered homepage artwork. */
+.hero {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 110px 24px 40px;
+}
+.home-visual {
+  width: min(72vw, 700px);
+  height: min(76vh, 1000px);
+  display: grid;
+  place-items: center;
+}
+.home-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (max-width: 700px) {
+  .hero { padding: 170px 18px 32px; }
+  .home-visual { width: min(88vw, 520px); height: 68vh; }
+}
+
+/* Final motion and navigation spacing adjustments. */
+.topbar::before {
+  background: linear-gradient(to bottom, rgba(255, 244, 49, 1) 0%, rgba(255, 244, 49, 0) 100%);
+}
+.image-nav { gap: 12px; }
+.image-nav a { flex: none; width: auto; overflow: visible; }
+.image-nav a:nth-of-type(1) img,
+.image-nav a:nth-of-type(2) img { height: 44px; transform: none; }
+.image-nav a:nth-of-type(3) img { height: 50px; transform: none; }
+.image-nav a:nth-of-type(4) img { height: 47px; transform: none; }
+.image-nav a:hover img,
+.image-nav a:nth-of-type(3):hover img,
+.image-nav a:nth-of-type(4):hover img { transform: translateY(-4px) scale(1.025); }
+.brand,
+.image-nav a { animation-duration: 3.2s; }
+.home-visual { animation: homePulse 3.7s ease-in-out infinite; }
+.project-card img { animation-duration: 3.8s; }
+@keyframes navPulse {
+  0%, 100% { translate: 0 0; rotate: -0.35deg; scale: 0.985; }
+  50% { translate: 0 -4px; rotate: 0.45deg; scale: 1.025; }
+}
+@keyframes homePulse {
+  0%, 100% { transform: scale(0.985) rotate(-0.2deg); }
+  50% { transform: scale(1.025) rotate(0.25deg); }
+}
+@keyframes projectPulse {
+  0%, 100% { transform: scale(0.985) rotate(-0.25deg); }
+  50% { transform: scale(1.025) rotate(0.25deg); }
+}
+.project-card { transition: transform 180ms ease-out; }
+@media (max-width: 700px) {
+  .image-nav { gap: 12px; }
+  .image-nav a { flex: none; }
+  .image-nav a:nth-of-type(1) img,
+  .image-nav a:nth-of-type(2) img { width: auto; height: 36px; }
+  .image-nav a:nth-of-type(3) img { width: auto; height: 41px; }
+  .image-nav a:nth-of-type(4) img { width: auto; height: 39px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-visual { animation: none; }
+}
+
+/* Slower drift-only breathing: no size changes. */
+.brand,
+.image-nav a { animation-duration: 5.8s; }
+.home-visual { animation-duration: 6.4s; }
+.project-card img { animation-duration: 6.1s; }
+@keyframes navPulse {
+  0%, 100% { translate: -2px 1px; rotate: -0.35deg; }
+  35% { translate: 2px -3px; rotate: 0.35deg; }
+  70% { translate: 3px 1px; rotate: -0.15deg; }
+}
+@keyframes homePulse {
+  0%, 100% { transform: translate(-3px, 2px) rotate(-0.2deg); }
+  40% { transform: translate(3px, -5px) rotate(0.25deg); }
+  72% { transform: translate(4px, 1px) rotate(-0.1deg); }
+}
+@keyframes projectPulse {
+  0%, 100% { transform: translate(-2px, 2px) rotate(-0.25deg); }
+  40% { transform: translate(3px, -4px) rotate(0.25deg); }
+  75% { transform: translate(4px, 1px) rotate(-0.12deg); }
+}
+
+/* Breathing uses vertical float and rotation only. */
+@keyframes navPulse {
+  0%, 100% { translate: 0 2px; rotate: -0.5deg; }
+  35% { translate: 0 -4px; rotate: 0.5deg; }
+  70% { translate: 0 1px; rotate: -0.25deg; }
+}
+@keyframes homePulse {
+  0%, 100% { transform: translateY(3px) rotate(-0.35deg); }
+  40% { transform: translateY(-6px) rotate(0.4deg); }
+  72% { transform: translateY(1px) rotate(-0.2deg); }
+}
+@keyframes projectPulse {
+  0%, 100% { transform: translateY(3px) rotate(-0.4deg); }
+  40% { transform: translateY(-5px) rotate(0.4deg); }
+  75% { transform: translateY(1px) rotate(-0.2deg); }
+}
+
+/* Rotation-led breathing with only a small vertical float. */
+@keyframes navPulse {
+  0%, 100% { translate: 0 1px; rotate: -1.2deg; }
+  35% { translate: 0 -2px; rotate: 1.2deg; }
+  70% { translate: 0 0; rotate: -0.7deg; }
+}
+@keyframes homePulse {
+  0%, 100% { transform: translateY(1px) rotate(-1deg); }
+  40% { transform: translateY(-2px) rotate(1deg); }
+  72% { transform: translateY(0) rotate(-0.6deg); }
+}
+@keyframes projectPulse {
+  0%, 100% { transform: translateY(1px) rotate(-1.1deg); }
+  40% { transform: translateY(-2px) rotate(1.1deg); }
+  75% { transform: translateY(0) rotate(-0.65deg); }
+}
+
+/* Stagger neighboring artwork so each item breathes independently. */
+.brand { animation-delay: -0.25s; }
+.image-nav a:nth-of-type(1) { animation-delay: -1.45s; }
+.image-nav a:nth-of-type(2) { animation-delay: -3.7s; }
+.image-nav a:nth-of-type(3) { animation-delay: -0.8s; }
+.image-nav a:nth-of-type(4) { animation-delay: -4.9s; }
+.home-visual { animation-delay: -2.6s; }
+.project-card:nth-child(1) img { animation-delay: -0.35s; }
+.project-card:nth-child(2) img { animation-delay: -3.15s; }
+.project-card:nth-child(3) img { animation-delay: -1.25s; }
+.project-card:nth-child(4) img { animation-delay: -4.75s; }
+.project-card:nth-child(5) img { animation-delay: -2.05s; }
+.project-card:nth-child(6) img { animation-delay: -5.45s; }
+
+/* Slightly reduced left-right rotation. */
+@keyframes navPulse {
+  0%, 100% { translate: 0 1px; rotate: -0.8deg; }
+  35% { translate: 0 -2px; rotate: 0.8deg; }
+  70% { translate: 0 0; rotate: -0.45deg; }
+}
+@keyframes homePulse {
+  0%, 100% { transform: translateY(1px) rotate(-0.7deg); }
+  40% { transform: translateY(-2px) rotate(0.7deg); }
+  72% { transform: translateY(0) rotate(-0.4deg); }
+}
+@keyframes projectPulse {
+  0%, 100% { transform: translateY(1px) rotate(-0.75deg); }
+  40% { transform: translateY(-2px) rotate(0.75deg); }
+  75% { transform: translateY(0) rotate(-0.4deg); }
+}
+
+/* Smaller rotation for the six portfolio cards only. */
+@keyframes projectPulse {
+  0%, 100% { transform: translateY(1px) rotate(-0.45deg); }
+  40% { transform: translateY(-2px) rotate(0.45deg); }
+  75% { transform: translateY(0) rotate(-0.25deg); }
+}
+
+/* Layered face and mouse-following pupils. */
+.eye-character { position: relative; width: 100%; height: 100%; }
+.eye-character img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.eye-pupil { will-change: translate; transition: translate 90ms ease-out; }
+
+.eye-pupil { transition-duration: 180ms; }
+
+
+/* Collage cover based on the supplied poster reference. */
+.hero { position: relative; isolation: isolate; overflow: hidden; padding: 96px 24px 24px; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background: linear-gradient(115deg, transparent 0 12%, rgba(31,61,242,.16) 12% 24%, transparent 24% 72%, rgba(255,49,119,.15) 72% 84%, transparent 84%), radial-gradient(circle at 1px 1px, rgba(23,36,67,.24) 1.5px, transparent 1.7px);
+  background-size: auto, 20px 20px;
+}
+.home-visual { position: relative; z-index: 2; width: min(55vw,720px); height: min(88vh,900px); }
+.home-stickers { position: absolute; inset: 76px 2.5vw 20px; z-index: 1; pointer-events: none; }
+.cover-sticker { position: absolute; object-fit: contain; filter: drop-shadow(3px 5px 0 rgba(23,36,67,.18)); animation: stickerDrift 7s ease-in-out infinite; }
+.sticker-crown { width: clamp(80px,10vw,160px); left: 5%; top: 6%; rotate: -13deg; animation-delay: -1.2s; }
+.sticker-arrow { width: clamp(72px,8vw,125px); left: 19%; top: 31%; rotate: 24deg; animation-delay: -4.5s; }
+.sticker-spark { width: clamp(68px,8vw,130px); right: 20%; top: 13%; rotate: 14deg; animation-delay: -2.3s; }
+.sticker-starburst { width: clamp(76px,9vw,145px); left: 24%; bottom: 8%; rotate: -18deg; animation-delay: -5.7s; }
+.sticker-lightning { width: clamp(72px,8vw,120px); right: 22%; top: 42%; rotate: 7deg; animation-delay: -3.4s; }
+.sticker-bubble { width: clamp(160px,20vw,310px); right: 2%; top: 24%; rotate: 6deg; animation-delay: -.8s; }
+.sticker-barcode { width: clamp(170px,23vw,360px); right: 1%; bottom: 10%; rotate: -7deg; animation-delay: -4.1s; }
+.sticker-label { width: clamp(220px,29vw,450px); left: 1%; bottom: 12%; rotate: -4deg; animation-delay: -2.8s; }
+.sticker-orbit { width: clamp(55px,6vw,92px); right: 12%; bottom: 32%; rotate: 11deg; animation-delay: -6.1s; }
+.sticker-smiley { width: clamp(48px,5vw,78px); left: 10%; bottom: 39%; rotate: -9deg; animation-delay: -3.1s; }
+@keyframes stickerDrift { 0%,100% { transform: translateY(2px) rotate(-.6deg); } 50% { transform: translateY(-5px) rotate(.7deg); } }
+@media (max-width:700px) {
+  .hero { padding-top:155px; }
+  .home-visual { width:min(80vw,540px); height:72vh; }
+  .home-stickers { inset:138px 8px 18px; }
+  .sticker-label { width:210px; bottom:5%; }
+  .sticker-bubble { width:150px; top:20%; }
+  .sticker-barcode { width:170px; bottom:4%; }
+  .sticker-arrow,.sticker-orbit,.sticker-smiley { display:none; }
+}
+@media (prefers-reduced-motion:reduce) { .cover-sticker { animation:none; } }
+
+/* Restore the original homepage background. */
+.hero::before { content: none; }
+
+/* Both frame layers share motion that differs from the face. */
+.face-frame {
+  animation: framePulse 7.4s ease-in-out infinite;
+  transform-origin: 50% 52%;
+}
+.frame-down { z-index: -1; }
+.frame-up { z-index: 5; }
+@keyframes framePulse {
+  0%, 100% { transform: translateY(-1px) rotate(0.55deg); }
+  42% { transform: translateY(3px) rotate(-0.55deg); }
+  76% { transform: translateY(0) rotate(0.3deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .face-frame { animation: none; }
+}
+
+/* Larger central character and denser balanced sticker collage. */
+.home-visual { width: min(68vw, 880px); height: min(96vh, 1040px); }
+.sticker-crown-small { width: clamp(45px,5vw,76px); right: 7%; top: 7%; rotate: 15deg; animation-delay: -4.2s; }
+.sticker-spark-two { width: clamp(55px,6vw,96px); left: 7%; top: 53%; rotate: 25deg; animation-delay: -1.7s; }
+.sticker-lightning-two { width: clamp(52px,6vw,90px); left: 30%; top: 15%; rotate: -20deg; animation-delay: -5.1s; }
+.sticker-black-x { width: clamp(42px,5vw,72px); right: 7%; top: 60%; rotate: 11deg; animation-delay: -2.6s; }
+.sticker-star-two { width: clamp(54px,6vw,94px); right: 28%; bottom: 5%; rotate: -8deg; animation-delay: -6.3s; }
+.sticker-small-x { width: clamp(38px,4vw,62px); left: 4%; top: 22%; rotate: -14deg; animation-delay: -3.7s; }
+@media (max-width: 700px) {
+  .home-visual { width: min(94vw, 620px); height: 78vh; }
+  .sticker-lightning-two, .sticker-star-two, .sticker-small-x { display: none; }
+}
+
+/* New hand-drawn sticker set. */
+.sticker-lhy { width: clamp(190px,26vw,410px); left: 1%; top: 8%; rotate: -5deg; animation-delay: -1.1s; }
+.sticker-welcome { width: clamp(180px,24vw,380px); right: 1%; top: 8%; rotate: 4deg; animation-delay: -4.3s; }
+.sticker-hello { width: clamp(150px,18vw,290px); left: 2%; top: 34%; rotate: -8deg; animation-delay: -2.4s; }
+.sticker-letsdoit { width: clamp(150px,18vw,280px); right: 2%; bottom: 9%; rotate: 6deg; animation-delay: -5.6s; }
+.sticker-tech { width: clamp(100px,12vw,185px); left: 8%; bottom: 28%; rotate: 7deg; animation-delay: -3.2s; }
+.sticker-play { width: clamp(95px,11vw,175px); right: 8%; top: 38%; rotate: -8deg; animation-delay: -.7s; }
+.sticker-heart-new { width: clamp(55px,6vw,92px); right: 28%; top: 13%; rotate: 13deg; animation-delay: -4.9s; }
+.sticker-flower-new { width: clamp(48px,5vw,82px); left: 28%; bottom: 7%; rotate: -14deg; animation-delay: -1.8s; }
+.sticker-star-new { width: clamp(58px,6vw,98px); right: 26%; bottom: 5%; rotate: 9deg; animation-delay: -3.8s; }
+.sticker-arrow-new { width: clamp(90px,10vw,150px); left: 24%; top: 17%; rotate: -15deg; animation-delay: -6.2s; }
+@media (max-width: 700px) {
+  .sticker-lhy { width: 180px; top: 5%; }
+  .sticker-welcome { width: 170px; top: 9%; }
+  .sticker-hello, .sticker-tech, .sticker-play, .sticker-arrow-new { display: none; }
+  .sticker-letsdoit { width: 145px; bottom: 5%; }
+}
+
+/* Clean collage layout: large labels on the edges, small marks in the gaps. */
+.sticker-arrow,
+.sticker-starburst,
+.sticker-lightning,
+.sticker-orbit,
+.sticker-smiley,
+.sticker-play { display: none; }
+.sticker-lhy { width: clamp(210px,22vw,360px); left: 1%; top: 4%; rotate: -4deg; }
+.sticker-welcome { width: clamp(200px,21vw,340px); right: 1%; top: 5%; rotate: 3deg; }
+.sticker-hello { width: clamp(160px,17vw,270px); left: 1%; top: 31%; rotate: -7deg; }
+.sticker-bubble { width: clamp(170px,18vw,280px); right: 1%; top: 29%; rotate: 5deg; }
+.sticker-tech { width: clamp(105px,11vw,170px); left: 4%; top: 57%; bottom: auto; rotate: 6deg; }
+.sticker-letsdoit { width: clamp(165px,17vw,265px); right: 2%; top: 58%; bottom: auto; rotate: 5deg; }
+.sticker-label { width: clamp(240px,25vw,400px); left: 1%; bottom: 3%; rotate: -3deg; }
+.sticker-barcode { width: clamp(210px,22vw,350px); right: 1%; bottom: 4%; rotate: -5deg; }
+.sticker-crown { width: clamp(62px,7vw,105px); left: 19%; top: 20%; rotate: -12deg; }
+.sticker-spark { width: clamp(58px,6vw,92px); right: 20%; top: 18%; rotate: 13deg; }
+.sticker-heart-new { width: clamp(48px,5vw,76px); right: 19%; top: 49%; rotate: 12deg; }
+.sticker-flower-new { width: clamp(44px,5vw,72px); left: 20%; bottom: 21%; rotate: -12deg; }
+.sticker-star-new { width: clamp(50px,5vw,78px); right: 20%; bottom: 20%; rotate: 8deg; }
+.sticker-black-x { width: clamp(38px,4vw,60px); right: 5%; top: 51%; rotate: 10deg; }
+@media (max-width: 1000px) {
+  .sticker-tech, .sticker-black-x, .sticker-heart-new, .sticker-flower-new { display: none; }
+  .sticker-lhy, .sticker-welcome { width: min(25vw, 250px); }
+  .sticker-label, .sticker-barcode { width: min(27vw, 270px); }
+}
+@media (max-width: 700px) {
+  .sticker-hello, .sticker-bubble, .sticker-crown, .sticker-spark, .sticker-star-new { display: none; }
+  .sticker-lhy { width: 155px; left: 1%; top: 4%; }
+  .sticker-welcome { width: 150px; right: 1%; top: 7%; }
+  .sticker-label { width: 190px; left: 1%; bottom: 3%; }
+  .sticker-barcode { width: 165px; right: 1%; bottom: 5%; }
+  .sticker-letsdoit { width: 135px; right: 1%; top: 61%; }
+}
+
+
+/* Visual sticker editor; hidden during normal browsing. */
+.sticker-editor {
+  position: fixed;
+  right: 18px;
+  top: 96px;
+  z-index: 100;
+  display: none;
+  width: min(290px, calc(100vw - 36px));
+  padding: 14px;
+  border: 2px solid var(--ink);
+  background: rgba(255,255,255,.94);
+  box-shadow: 6px 6px 0 var(--ink);
+  color: var(--ink);
+  font: 700 14px/1.3 Arial, sans-serif;
+}
+body.sticker-editing .sticker-editor { display: block; }
+.editor-status { display: block; min-height: 18px; margin: 7px 0 10px; font-weight: 400; overflow-wrap: anywhere; }
+.editor-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.editor-actions button {
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 2px solid var(--ink);
+  background: #fff431;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.editor-actions button:hover { background: #ff4fa2; color: white; }
+body.sticker-editing .home-stickers { pointer-events: auto; z-index: 20; }
+body.sticker-editing .cover-sticker {
+  pointer-events: auto;
+  cursor: grab;
+  animation: none !important;
+  user-select: none;
+  touch-action: none;
+}
+body.sticker-editing .cover-sticker:active { cursor: grabbing; }
+body.sticker-editing .cover-sticker.is-selected {
+  outline: 3px dashed #172443;
+  outline-offset: 5px;
+  filter: drop-shadow(0 0 5px white);
+}
+
+.editor-controls { display: grid; gap: 8px; margin: 10px 0 12px; }
+.editor-controls label { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 8px; }
+.editor-controls input { width: 100%; accent-color: #ff4fa2; }
+.editor-controls input:disabled { opacity: .35; }
+
+/* Keep every sticker behind the central character, including edit mode. */
+.home-stickers,
+body.sticker-editing .home-stickers { z-index: 1; }
+.home-visual { z-index: 3; pointer-events: none; }
+.eye-pupil { pointer-events: none; }
+body.sticker-editing .cover-sticker { max-width: none; max-height: none; }
+
+/* Raise stickers only while editing so newly added images stay selectable. */
+body.sticker-editing .home-stickers { z-index: 20; }
+body:not(.sticker-editing) .home-stickers { z-index: 1; }
+
+/* Stickers use the character area as their responsive anchor. */
+.home-visual { overflow: visible; }
+.home-visual .home-stickers { position: absolute; inset: 0; z-index: 1; overflow: visible; }
+.home-visual .eye-character { position: relative; z-index: 2; }
+body.sticker-editing .home-visual { pointer-events: auto; }
+
+
+/* Character body layer above the upper frame; follows the character motion. */
+.eye-character .body-cover { z-index: 6; animation: none; }
+
+
+/* Responsive background: row height and loop distance match each image. */
+.hero::before, .hero::after { content: none; }
+.home-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.background-strip {
+  flex: 0 0 var(--row-height);
+  width: 100%;
+  height: var(--row-height);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  background-repeat: repeat-x;
+  background-size: var(--tile-width) var(--row-height);
+  background-position: 0 0;
+}
+.handdraw-strip {
+  background-image: url("assets/background/handdraw.webp");
+  animation: stripLeft 36s linear infinite;
+}
+.welcome-strip {
+  background-image: url("assets/background/wellcome.webp");
+  animation: stripRight 32s linear infinite;
+}
+@keyframes stripLeft {
+  from { background-position-x: 0; }
+  to { background-position-x: calc(-1 * var(--tile-width)); }
+}
+@keyframes stripRight {
+  from { background-position-x: calc(-1 * var(--tile-width)); }
+  to { background-position-x: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .background-strip { animation: none; }
+}
+
+/* One continuous background behind all main sections. */
+body > main { position: relative; z-index: 1; }
+body > main > section { background: transparent; }
+body > footer { position: relative; z-index: 1; }
+
+
+/* Anchor the continuous background to the full document. */
+body { position: relative; }
+
+/* Scroll through the zoom before leaving the homepage. */
+.home-scroll-scene { position: relative; height: 170svh; }
+.home-scroll-scene > .hero {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 0;
+  box-sizing: border-box;
+}
+.home-scroll-scene .eye-character {
+  scale: var(--home-scroll-scale, 1);
+  transform-origin: 50% 50%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-scroll-scene { height: 100svh; }
+  .home-scroll-scene .eye-character { scale: 1; }
+}
+
+
+
+/* Fade the character and stickers together after the zoom reaches 2x. */
+.home-scroll-scene .home-visual { opacity: var(--home-scroll-opacity, 1); }
+
