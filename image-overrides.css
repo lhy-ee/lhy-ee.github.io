@@ -501,14 +501,16 @@ body.sticker-editing .home-visual { pointer-events: auto; }
   background-repeat: repeat-x;
   background-size: var(--tile-width) var(--row-height);
   background-position: 0 0;
+  filter: hue-rotate(30deg) saturate(1) brightness();
+  opacity: 0.16;
 }
 .handdraw-strip {
   background-image: url("assets/background/handdraw.webp");
-  animation: stripLeft 36s linear infinite;
+  animation: stripLeft 200s linear infinite;
 }
 .welcome-strip {
   background-image: url("assets/background/wellcome.webp");
-  animation: stripRight 32s linear infinite;
+  animation: stripRight 150s linear infinite;
 }
 @keyframes stripLeft {
   from { background-position-x: 0; }
@@ -553,4 +555,18 @@ body { position: relative; }
 
 /* Fade the character and stickers together after the zoom reaches 2x. */
 .home-scroll-scene .home-visual { opacity: var(--home-scroll-opacity, 1); }
+
+
+/* Fixed vertical page gradient. */
+:root {
+  --bg-top: #f3a6cc;
+  --bg-bottom: #f4f0c5;
+}
+html {
+  background: var(--bg-top);
+}
+body {
+  background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom)) fixed;
+  background-size: 100% 100vh;
+}
 
