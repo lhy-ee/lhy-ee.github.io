@@ -92,7 +92,7 @@ h2 { font-size: 48px; overflow-wrap: anywhere; }
   z-index: -1;
   opacity: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(255, 244, 49, 0.72), rgba(255, 244, 49, 0.08));
+  background: linear-gradient(to bottom, rgba(255, 229, 146, 0.72), rgba(255, 229, 146, 0.00));
   transition: opacity 320ms ease;
 }
 .topbar.has-backdrop::before { opacity: var(--nav-backdrop-opacity, 1); }
@@ -150,7 +150,7 @@ h2 { font-size: 48px; overflow-wrap: anywhere; }
 
 /* Final motion and navigation spacing adjustments. */
 .topbar::before {
-  background: linear-gradient(to bottom, rgba(255, 244, 49, 1) 0%, rgba(255, 244, 49, 0) 100%);
+  background: linear-gradient(to bottom, rgba(244, 148, 188, 1) 0%, rgba(244, 148, 188, 0) 100%);
 }
 .image-nav { gap: 12px; }
 .image-nav a { flex: none; width: auto; overflow: visible; }
@@ -568,5 +568,81 @@ html {
 body {
   background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom)) fixed;
   background-size: 100% 100vh;
+}
+
+
+/* Seeded decorative stickers across the homepage and CV transition. */
+.home-stickers,
+.sticker-editor { display: none !important; }
+.hero,
+.cv-section { position: relative; }
+.random-sticker-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.random-page-sticker {
+  position: absolute;
+  left: var(--sticker-x);
+  top: var(--sticker-y);
+  width: clamp(14px, var(--sticker-size), 59px);
+  height: auto;
+  opacity: var(--sticker-opacity, 1);
+  translate: -50% -50%;
+  rotate: var(--sticker-angle);
+  object-fit: contain;
+  filter: drop-shadow(2px 3px 0 rgba(23, 36, 67, .14));
+  animation: randomStickerFloat 8s ease-in-out var(--sticker-delay) infinite;
+}
+.hero > .home-visual,
+.cv-section > .cv-sheet { position: relative; z-index: 2; }
+@keyframes randomStickerFloat {
+  0%, 100% { transform: translateY(-2px) rotate(-1deg); }
+  50% { transform: translateY(4px) rotate(1deg); }
+}
+@media (max-width: 600px) {
+  .random-page-sticker { max-width: 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .random-page-sticker { animation: none; }
+}
+
+.home-random-stickers {
+  opacity: var(--home-scroll-opacity, 1);
+  clip-path: inset(clamp(100px, 13vh, 150px) 0 0);
+}
+
+
+
+/* Maximize and center the character below navigation. */
+.home-scroll-scene .hero {
+  --home-nav-space: 108px;
+  --home-bottom-space: 16px;
+  padding: var(--home-nav-space) 12px var(--home-bottom-space);
+  place-items: center;
+}
+.home-scroll-scene .home-visual {
+  width: min(
+    calc(100vw - 24px),
+    calc((100svh - var(--home-nav-space) - var(--home-bottom-space)) * 2345 / 2965)
+  );
+  height: auto;
+  aspect-ratio: 2345 / 2965;
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .home-scroll-scene .hero {
+    --home-nav-space: 158px;
+    --home-bottom-space: 12px;
+    padding-inline: 8px;
+  }
+  .home-scroll-scene .home-visual {
+    width: min(
+      calc(100vw - 16px),
+      calc((100svh - var(--home-nav-space) - var(--home-bottom-space)) * 2345 / 2965)
+    );
+  }
 }
 
