@@ -876,7 +876,7 @@ body {
 .image-nav a:nth-of-type(3) img,
 .image-nav a:nth-of-type(4) img {
   width: auto;
-  height: 30px;
+  height: 45px;
   max-width: none;
   transform: none;
   object-fit: contain;
@@ -898,4 +898,21 @@ body {
 }
 .image-nav {
   transform: translate(30px,-20px); /* 正数向下，负数向上 */
+}
+/* Airier desktop portfolio layout. */
+@media (min-width: 841px) {
+  .work {
+    padding-block: 110px;
+  }
+  .work .project-grid {
+    width: min(100%, 1650px);
+    margin-inline: auto;
+    column-gap: 66px;
+    row-gap: 78px;
+  }
+}
+@media (min-width: 841px) {
+  .work .project-card img {
+    scale: 1.08;
+  }
 }

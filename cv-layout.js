@@ -6,7 +6,7 @@
   const pageHeight = 1588;
 
   function resizeCv() {
-    const scale = Math.min(1, sheet.clientWidth / pageWidth);
+    const scale = Math.min(1.122807, sheet.clientWidth / pageWidth);
     sheet.style.setProperty('--cv-scale', String(scale));
     sheet.style.height = `${pageHeight * scale}px`;
   }

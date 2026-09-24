@@ -11,9 +11,9 @@
 
 .cv-sheet {
   position: relative;
-  width: 800px;
+  width: 1280px;
   max-width: calc(100vw - 96px);
-  height: 1114px;
+  height: 1782px;
   transform-origin: 0 0;
   isolation: isolate;
 }
