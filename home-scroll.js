@@ -16,6 +16,18 @@
   function schedule() {
     if (!pending) { pending = true; requestAnimationFrame(render); }
   }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href="#home"]');
+    if (!link || event.defaultPrevented || event.button !== 0 ||
+        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (location.hash !== '#home') history.pushState(null, '', '#home');
+    window.scrollTo({
+      top: window.scrollY + scene.getBoundingClientRect().top,
+      behavior: reduced.matches ? 'instant' : 'smooth'
+    });
+    schedule();
+  });
   addEventListener('scroll', schedule, { passive: true });
   addEventListener('resize', schedule);
   addEventListener('pageshow', schedule);

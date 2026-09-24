@@ -1,0 +1,7 @@
+.about { min-height: 100svh; padding: clamp(6rem,12vw,10rem) clamp(1.25rem,7vw,6rem); display: grid; place-items: center; }
+.about__content { width: min(100%, 900px); text-align: center; }
+.about__eyebrow { margin: 0 0 1rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.about h2 { margin: 0; font: 900 clamp(3.2rem,10vw,8rem)/.95 "Arial Black", Impact, sans-serif; }
+.about__role { margin: 1.4rem 0 0; font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 700; }
+.about__placeholder { margin: 2rem auto 0; max-width: 40rem; font-size: 1rem; line-height: 1.6; }
+.site-footer { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 1.5rem; padding: .75rem clamp(1.25rem,5vw,4.5rem); border-top: 2px solid rgba(255,255,255,.75); background: rgba(244,240,197,.85); font-size: .875rem; font-weight: 700; }

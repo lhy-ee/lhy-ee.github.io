@@ -1,9 +1,9 @@
 (() => {
   const character = document.querySelector('.eye-character');
   const pupils = [...document.querySelectorAll('.eye-pupil')];
-  const maxX = 10;
-  const maxUp = 4;
-  const maxDown = 8;
+  const maxX = 30;
+  const maxUp = 10;
+  const maxDown = 22;
   if (!character || pupils.length === 0) return;
 
   function moveEyes(event) {

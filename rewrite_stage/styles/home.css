@@ -1,0 +1,14 @@
+.home-scene { position: relative; height: 170svh; }
+.home { --home-top-space: var(--header-height); --home-bottom-space: 1rem; position: sticky; top: 0; height: 100svh; padding: var(--home-top-space) .75rem var(--home-bottom-space); display: grid; place-items: center; overflow: hidden; }
+.home-art { position: relative; z-index: 2; width: min(calc(100vw - 1.5rem), calc((100svh - var(--home-top-space) - var(--home-bottom-space)) * 2240 / 2269), 880px); aspect-ratio: 2240 / 2269; opacity: var(--home-opacity, 1); transform: scale(var(--home-scale, 1)); transform-origin: center; }
+.character, .character__canvas { width: 100%; height: 100%; }
+.character__canvas { display: block; overflow: visible; }
+.character__background-motion, .character__body-motion { transform-box: view-box; transform-origin: 1120px 1134.5px; }
+.character__background-motion { animation: background-breathe 7.8s ease-in-out -1.7s infinite; }
+.character__body-motion { animation: body-breathe 6.6s ease-in-out -3.1s infinite; }
+.character__eyes { translate: var(--eye-x, 0) var(--eye-y, 0); transition: translate 90ms ease-out; }
+.sticker-field { position: absolute; inset: 0; z-index: 1; opacity: var(--home-opacity, 1); pointer-events: none; clip-path: inset(clamp(100px, 13vh, 150px) 0 0); }
+.page-sticker { position: absolute; left: var(--x); top: var(--y); width: var(--size); height: auto; translate: calc(-50% + var(--evade-x, 0px)) calc(-50% + var(--evade-y, 0px)); rotate: var(--angle); filter: drop-shadow(2px 3px 0 rgba(23,36,67,.14)); animation: sticker-float 7.2s ease-in-out var(--delay) infinite; }
+@keyframes background-breathe { 0%,100% { transform: translateY(-12px) rotate(-1.2deg); } 50% { transform: translateY(12px) rotate(1.2deg); } }
+@keyframes body-breathe { 0%,100% { transform: translateY(3px) rotate(.5deg); } 48% { transform: translateY(-8px) rotate(-.5deg); } }
+@keyframes sticker-float { 0%,100% { transform: translateY(-3px) rotate(-1.4deg); } 50% { transform: translateY(6px) rotate(1.4deg); } }

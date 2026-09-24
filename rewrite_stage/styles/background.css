@@ -1,0 +1,6 @@
+.page-background { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: linear-gradient(to bottom, var(--color-pink), var(--color-cream)); }
+.background-strip { position: absolute; left: 0; width: 100%; height: var(--strip-height); background-repeat: repeat-x; background-size: var(--tile-width) var(--strip-height); opacity: .16; filter: hue-rotate(30deg) saturate(1) brightness(1); }
+.background-strip--hand { background-image: url("../assets/background/handdraw.webp"); animation: strip-left 200s linear infinite; }
+.background-strip--welcome { background-image: url("../assets/background/wellcome.webp"); animation: strip-right 150s linear infinite; }
+@keyframes strip-left { to { background-position-x: calc(-1 * var(--tile-width)); } }
+@keyframes strip-right { from { background-position-x: calc(-1 * var(--tile-width)); } }
