@@ -288,7 +288,7 @@ h2 { font-size: 48px; overflow-wrap: anywhere; }
 .eye-character img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
 .eye-pupil { will-change: translate; transition: translate 90ms ease-out; }
 
-.eye-pupil { transition: translate 40ms linear; }
+.eye-pupil { transition: none; }
 
 
 /* Collage cover based on the supplied poster reference. */
