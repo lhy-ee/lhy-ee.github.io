@@ -1,5 +1,0 @@
-.cv { width: min(100%, 1000px); min-height: 100svh; margin-inline: auto; padding: 5rem 1.5rem 6.25rem; }
-.cv-sheet { position: relative; min-height: 1100px; isolation: isolate; opacity: var(--cv-opacity, 0); transform: matrix(1,0,var(--cv-shear,0),1,var(--cv-x,-200px),0); transform-origin: 0 0; }
-.cv-sheet__frame { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
-.cv-sheet__content { padding: 12% 10% 10%; color: #202020; font-size: 1rem; line-height: 1.6; overflow-wrap: anywhere; }
-.cv-sheet__heading { margin-bottom: 1.75rem; }.cv-sheet__content h2 { margin: 0 0 .75rem; font-size: clamp(2rem,5vw,2.4rem); line-height: 1.15; }.cv-sheet__content h3 { margin: 1.6rem 0 .6rem; font-size: 1.3rem; line-height: 1.3; }.cv-sheet__content p { margin: 0 0 .9rem; }.cv-sheet__content ul { margin: 0 0 1.25rem; padding-left: 1.4rem; }.cv-sheet__content a { text-underline-offset: 3px; }
